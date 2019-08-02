@@ -22,8 +22,8 @@ let config = {
   entry: {
     'commons': [path.join(__dirname, './src/page/common/index.js')],
     'index': [path.join(__dirname, './src/page/index/index.js')],
-    // 'list': [path.join(__dirname, './src/page/list/index.js')],
-    // 'detail': [path.join(__dirname, './src/page/detail/index.js')],
+    'list': [path.join(__dirname, './src/page/list/index.js')],
+    'detail': [path.join(__dirname, './src/page/detail/index.js')],
     // 'cart': [path.join(__dirname, './src/page/cart/index.js')],
     // 'order-confirm': [path.join(__dirname, './src/page/order-confirm/index.js')],
     // 'order-list': [path.join(__dirname, './src/page/order-list/index.js')],
@@ -114,8 +114,8 @@ let config = {
     // html模板的处理
     new webpack.HotModuleReplacementPlugin(),   //引入热更新插件
     new HtmlWebpackPlugin(getHtmlConfig('index', '首页')),
-    // new HtmlWebpackPlugin(getHtmlConfig('list' ,'商品列表')),
-    // new HtmlWebpackPlugin(getHtmlConfig('detail' ,'商品详情')),
+    new HtmlWebpackPlugin(getHtmlConfig('list', '商品列表')),
+    new HtmlWebpackPlugin(getHtmlConfig('detail', '商品详情')),
     // new HtmlWebpackPlugin(getHtmlConfig('cart' ,'购物车')),
     // new HtmlWebpackPlugin(getHtmlConfig('order-confirm' ,'订单确认')),
     // new HtmlWebpackPlugin(getHtmlConfig('order-list' ,'订单列表')),

@@ -33,7 +33,6 @@ let _mm = {
     getUrlParam(name) {
         let reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
         let result = window.location.search.substr(1).match(reg)
-        console.log(result)
         return result ? decodeURIComponent(result[2]) : null
     },
     // 成功提示

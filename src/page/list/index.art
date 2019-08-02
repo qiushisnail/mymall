@@ -1,0 +1,18 @@
+{{each list}}
+    <li class="p-item">
+        <div class="p-img-con">
+            <a href="./detail.html?productId={{$value.id}}" target="_blank" class="link">
+                <img src="{{$value.mainImage}}" alt="{{$value.name}}" class="p-img">
+            </a>
+        </div>
+        <div class="p-price-con">
+            <span class="p-price">￥{{$value.price}}</span>
+        </div>
+        <div class="p-name-con">
+            <a href="./detail.html?productId={{$value.id}}" target="_blank" class="p-name">{{$value.name}}</a>
+        </div>
+    </li>
+{{/each}}
+{{if list.length==0}} 
+    <p class="err-tip">很抱歉，实在找不到您要的商品</p> 
+{{/if}}

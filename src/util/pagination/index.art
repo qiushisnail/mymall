@@ -1,0 +1,15 @@
+<div class="pg-content">
+{{each pageArray}}
+
+     {{if $value.disabled}}
+            <span class="pg-item disabled" data-value="{{$value.value}}">{{$value.name}}</span>
+        {{else}}
+            {{if $value.active}}
+                <span class="pg-item active " data-value="{{$value.value}}">{{$value.name}}</span>
+            {{else}}
+                <span class="pg-item" data-value="{{$value.value}}">{{$value.name}}</span>
+            {{/if}}
+        {{/if}}
+{{/each}}
+ <span class="pg-total">{{pageNum}}/{{pages}}</span>
+</div>
