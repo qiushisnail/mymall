@@ -1,32 +1,37 @@
-const { resolve } = require('path')
+const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack');
 
 // 获取html-webpack-login参数的方法
-var getHtmlConfig = function (name) {
+let getHtmlConfig = function (name) {
   return {
-    template: './src/view/' + name + '.html',
+    template: 'src/view/' + name + '.html',//path.resolve(__dirname, 'src/view/' + name + '.html'),
     filename: 'view/' + name + '.html',
     inject: true,
     hash: true,
-    chunks: ['common', name]
+    chunks: ['commons', name]
   }
 }
+
 // webpack config
 let config = {
   mode: 'development',
   entry: {
-    'common': ['./src/page/common/index.js'],
-    'index': ['./src/page/index/index.js'],
-    'login': ['./src/page/login/index.js']
+    'commons': [path.join(__dirname, './src/page/common/index.js')],
+    'index': [path.join(__dirname, './src/page/index/index.js')]
+  },
+  node: {
+    fs: 'empty'
   },
   output: {
+    path: path.join(__dirname, './dist'),//存放文件的路径,必须为绝对路径才有效
     filename: 'js/[name].js',
-    //publicPath: "/dist",
-    path: resolve(__dirname, 'dist')
+    publicPath: '/dist/', //访问文件时用的路径
+    chunkFilename: "js/[name].js"
   },
   devServer: {
+    disableHostCheck: true,
     host: 'localhost',    //服务器的ip地址
     port: 1573,    //端口
     open: true,    //自动打开页面，
@@ -34,7 +39,8 @@ let config = {
   },
   resolve: {
     alias: {
-      '@': resolve('./src')
+      '@': path.resolve('./src'),
+      node_modules: __dirname + '/node_modules',
     }
   },
   externals: {
@@ -43,22 +49,41 @@ let config = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader, "css-loader"
-        ],
-        exclude: /node_modules/,
-        include: resolve('./src')
-      },
-      {
-        test: /\.(png|gif|jpg|svg|woff|woff2?|eot|ttf|otf)\??.*$/,
+        test: /\.js$/,
         use: [
           {
-            loader: 'url-loader',
+            loader: 'babel-loader',
             options: {
-              limit: 10000,
-              name: 'resoure/[name].[ext]'
+              presets: ["@babel/preset-env", "@babel/preset-react"],
+              plugins: [
+                ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                ["@babel/plugin-proposal-class-properties", { "loose": true }]
+              ]
             }
+          }
+        ],
+        exclude: /node_modules/,
+        include: path.resolve('./src')
+      },
+      { test: /\.css$/, use: [MiniCssExtractPlugin.loader, 'css-loader'] },
+      // 图片的配置
+      {
+        test: /\.(png|jpg|gif|bmp|jpeg)$/, use: [{
+          loader: 'url-loader',
+          options: {
+            limit: 100,
+            outputPath: 'resource/',
+            name: '[name].[ext]'
+          }
+        }],
+      },
+      // 字体图标的配置
+      { test: /\.(ttf|eot|svg|woff|woff2)\??.*$/, use: 'url-loader' },
+      {
+        test: /\.art$/,
+        use: [
+          {
+            loader: "art-template-loader",
           }
         ]
       }
@@ -66,27 +91,23 @@ let config = {
   },
   plugins: [
     // 把css单独到文件里
-    new MiniCssExtractPlugin({
-      filename: 'css/[name]-[contenthash].css'
+    new MiniCssExtractPlugin({ //css文件单独打包
+      filename: "css/[name].css", //保存到dist目录下，有一个css文件夹
+      chunkFilename: "[id].css"
     }),
     // html模板的处理
     new HtmlWebpackPlugin(getHtmlConfig('index')),
-    new HtmlWebpackPlugin(getHtmlConfig('login')),
-    new webpack.HotModuleReplacementPlugin()    //引入热更新插件
+    new webpack.HotModuleReplacementPlugin(),   //引入热更新插件
+
   ],
   optimization: {
-    // 独立通用模块到js/base.js
     splitChunks: {
-      chunks: "all",
       cacheGroups: {
         commons: {
-          chunks: "initial",
-          minChunks: 2,
-          name: "common",
-          filename: 'js/base.js',
-          maxInitialRequests: 5,
-          minSize: 0 // 默认是30kb，minSize设置为0之后
-        },
+          name: 'commons',
+          minChunks: 2, // 表示提取公共部分最少的文件数
+          minSize: 0  // 表示提取公共部分最小的大小
+        }
       }
     }
   }
