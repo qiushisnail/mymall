@@ -10,6 +10,7 @@ let getHtmlConfig = function (name) {
     filename: 'view/' + name + '.html',
     inject: true,
     hash: true,
+    favicon : './favicon.ico',
     chunks: ['commons', name]
   }
 }

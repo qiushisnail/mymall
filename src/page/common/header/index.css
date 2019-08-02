@@ -1,0 +1,36 @@
+.header {
+  width: 100%;
+}
+.header .w {
+  position: relative;
+}
+/* logo */
+.header .logo {
+  position: absolute;
+  font-size: 36px;
+  color: #c60023;
+  font-weight: bold;
+  left: 60px;
+  top:34px;
+}
+
+/* 搜索框 */
+.header .search {
+  padding: 40px 0 30px 250px;
+}
+
+.header .search > .input-search {
+  width: 550px;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 10px;
+  font-size: 15px;
+  border: 2px solid #c60023;
+  outline: none;
+}
+.header .search > .btn-search {
+  position: absolute;
+  height: 44px;
+  padding: 0 20px;
+  font-size: 17px;
+}
