@@ -11,7 +11,7 @@
   color: #c60023;
   font-weight: bold;
   left: 60px;
-  top:34px;
+  top: 34px;
 }
 
 /* 搜索框 */
@@ -33,4 +33,14 @@
   height: 44px;
   padding: 0 20px;
   font-size: 17px;
+}
+/* 面包屑导航 */
+.crumb {
+  margin-bottom: 15px;
+  height: 50px;
+  line-height: 50px;
+  background: #eee;
+  color: #888;
+  font-size: 14px;
+  border-top: 2px solid #c60023;
 }

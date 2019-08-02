@@ -55,16 +55,16 @@ let _mm = {
             return /^1\d{10}$/.test(value)
         }
 
-        if ("phone" === email) {
+        if ("email" === type) {
             return /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/.test(value)
         }
     },
     doLogin() {
-        window.location.href = "./login.html?redirect=" || encodeURIComponent(window.location.href)
+        window.location.href = "./userLogin.html?redirect=" || encodeURIComponent(window.location.href)
     },
     getHome() {
         window.location.href = "./index.html"
     }
 }
 
-module.exports = _mm;
+export default _mm;

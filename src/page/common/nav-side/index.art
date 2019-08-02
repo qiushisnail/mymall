@@ -1,0 +1,9 @@
+{{each navList}}
+  {{if $value.isActive}} 
+    <li class="nav-item active">
+    {{else}}
+    <li class="nav-item">
+  {{/if}}
+      <a href={{$value.href}} class="link">{{$value.desc}}</a>
+    </li>
+{{/each}}
