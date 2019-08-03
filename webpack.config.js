@@ -36,7 +36,7 @@ let config = {
     'user-center-update': [path.join(__dirname, './src/page/user-center-update/index.js')],
     'user-pass-update': [path.join(__dirname, './src/page/user-pass-update/index.js')],
     'result': [path.join(__dirname, './src/page/result/index.js')],
-    // 'about': [path.join(__dirname, './src/page/about/index.js')],
+    'about': [path.join(__dirname, './src/page/about/index.js')],
   },
   node: {
     fs: 'empty'
@@ -129,7 +129,7 @@ let config = {
     new HtmlWebpackPlugin(getHtmlConfig('user-center-update', '修改个人信息')),
     new HtmlWebpackPlugin(getHtmlConfig('user-pass-update', '修改密码')),
     new HtmlWebpackPlugin(getHtmlConfig('result', '操作结果')),
-    // new HtmlWebpackPlugin(getHtmlConfig('about','关于mmall')),
+    new HtmlWebpackPlugin(getHtmlConfig('about', '关于mmall')),
   ],
   optimization: {
     splitChunks: {
