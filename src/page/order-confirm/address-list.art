@@ -1,0 +1,24 @@
+    {{each list}}
+       {{if isActive}}
+            <div class="address-item active" data-id="{{$value.id}}">
+       {{else}}
+            <div class="address-item" data-id="{{$value.id}}">
+       {{/if}}
+            <div class="address-title">
+                {{$value.receiverCity}} {{$value.receiverProvince}} （{{$value.receiverName}} 收 ）
+            </div>
+            <div class="address-detail">
+                {{$value.receiverAddress}}  {{$value.receiverPhone}}
+            </div>
+            <div class="address-opera">
+                <span class="link address-update">编辑</span>
+                <span class="link address-delete">删除</span>
+            </div>
+            </div>
+    {{/each}}
+            <div class="address-add">
+                <div class="address-new">
+                    <i class="fa fa-plus"></i>
+                    <div class="text">使用新地址</div>
+            </div>
+    </div>
